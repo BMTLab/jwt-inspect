@@ -130,7 +130,9 @@ When sourced, the script sets `JWT_SCRIPT_SOURCED=true` and `jwt_inspect` will u
 jwt-inspect 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.invalid-signature'
 ```
 
-Example output (simplified):
+Example output:
+
+<img width="1352" height="1276" alt="image" src="https://github.com/user-attachments/assets/c744d6b3-4cff-4433-a2f3-4a4338f264f4" />
 
 ```text
 === JWT Header ===
