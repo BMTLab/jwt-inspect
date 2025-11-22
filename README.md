@@ -51,7 +51,7 @@ A small Bash CLI and function to decode and inspect JSON Web Tokens (JWT) direct
 6. **Safe CLI function or standalone script**
 
    * Can be **executed** as a standalone script (`./jwt-inspect.sh ...`).
-   * Can be **sourced** into your shell to define the `jwt_inspect` function without exiting the shell on error.
+   * Can be **sourced** into your shell to define the `jwt-inspect` function without exiting the shell on error.
 
 > [!TIP]
 > For sensitive secrets, prefer the `JWT_SECRET` environment variable over the `-k` flag, 
@@ -94,7 +94,7 @@ You can now run it directly:
 
 ### 3. (Optional) Install into your PATH
 
-To use `jwt_inspect` as a global command, move or symlink the script into a directory on your `PATH`:
+To use `jwt-inspect` as a global command, move or symlink the script into a directory on your `PATH`:
 
 ```bash
 mv jwt-inspect.sh ~/.local/bin/jwt-inspect
@@ -109,16 +109,16 @@ jwt-inspect '<your-jwt-here>'
 
 ### 4. (Optional) Source into your shell
 
-If you prefer `jwt_inspect` as a shell function (without starting a new process and without exiting the shell on errors), you can source the script:
+If you prefer `jwt-inspect` as a shell function (without starting a new process and without exiting the shell on errors), you can source the script:
 
 ```bash
 source /path/to/jwt-inspect.sh
 
-# now jwt_inspect is available as a function
-jwt_inspect '<your-jwt-here>'
+# now jwt-inspect is available as a function
+jwt-inspect '<your-jwt-here>'
 ```
 
-When sourced, the script sets `JWT_SCRIPT_SOURCED=true` and `jwt_inspect` will use `return` instead of `exit` on errors.
+When sourced, the script sets `JWT_SCRIPT_SOURCED=true` and `jwt-inspect` will use `return` instead of `exit` on errors.
 
 ---
 
@@ -186,14 +186,14 @@ Signature Check:
 
 ## Usage
 
-The script defines a single user-facing entry point: the `jwt_inspect` function (also called when the script is executed as `jwt-inspect.sh`).
+The script defines a single user-facing entry point: the `jwt-inspect` function (also called when the script is executed as `jwt-inspect.sh`).
 
 Basic syntax:
 
 ```bash
-jwt_inspect [-k <secret>] <token>
+jwt-inspect [-k <secret>] <token>
 
-echo '<token>' | jwt_inspect [-k <secret>]
+echo '<token>' | jwt-inspect [-k <secret>]
 ```
 
 ### Options
@@ -210,19 +210,19 @@ The token can be supplied:
 1. As a positional argument:
 
    ```bash
-   jwt_inspect '<jwt-token-here>'
+   jwt-inspect '<jwt-token-here>'
    ```
 
 2. Via stdin (for example, piping from another command or pasting):
 
    ```bash
-   echo '<jwt-token-here>' | jwt_inspect
+   echo '<jwt-token-here>' | jwt-inspect
    ```
 
 Whitespace characters (spaces, tabs, newlines) are stripped from the token before parsing, so you can safely paste multi-line tokens.
 
 > [!IMPORTANT]
-> `jwt_inspect` expects a standard JWT with **three dot-separated parts**
+> `jwt-inspect` expects a standard JWT with **three dot-separated parts**
 > (`header.payload.signature`). Tokens with fewer parts are treated as invalid and cause an error.
 
 ---
@@ -292,12 +292,12 @@ Signature Check:
 
     ```bash
     export JWT_SECRET='your-secret-here'
-    jwt_inspect '<token>'
+    jwt-inspect '<token>'
     ```
 
 * **Local verification vs. online tools**
 
-  * `jwt_inspect` is safer than web-based JWT debuggers because tokens never leave your machine.
+  * `jwt-inspect` is safer than web-based JWT debuggers because tokens never leave your machine.
   * However, you are still responsible for keeping your secret keys safe and using the tool in trusted environments.
 
 * **Parsing limitations**
@@ -317,7 +317,7 @@ The script uses deterministic exit codes so you can integrate it into other tool
 * `3` (`JWT_ERR_INVALID_FORMAT`) - Not a valid JWT structure
 * `4` (`JWT_ERR_SIG_MISMATCH`) - Signature verification failed
 
-When sourced, `jwt_inspect` **returns** these codes instead of exiting the shell.
+When sourced, `jwt-inspect` **returns** these codes instead of exiting the shell.
 
 ---
 
@@ -326,7 +326,7 @@ When sourced, `jwt_inspect` **returns** these codes instead of exiting the shell
 ### Check if a token is expired
 
 ```bash
-if jwt_inspect "$TOKEN" >/dev/null; then
+if jwt-inspect "$TOKEN" >/dev/null; then
   echo "Token is structurally valid"
 else
   echo "Token is invalid or expired (see output above)" >&2
@@ -338,7 +338,7 @@ fi
 ```bash
 export JWT_SECRET='my-secret'
 
-if ! jwt_inspect "$TOKEN" >/dev/null; then
+if ! jwt-inspect "$TOKEN" >/dev/null; then
   echo "JWT failed verification" >&2
   exit 1
 fi

@@ -2,7 +2,7 @@
 
 # Name: jwt-inspect.sh
 # Author: Nikita Neverov (BMTLab)
-# Version: 1.0.0
+# Version: 1.0.1
 # Date: 2025-11-21
 # License: MIT
 #
@@ -27,10 +27,10 @@
 #     to avoid history logging.
 #
 # Usage:
-#   jwt_inspect <token>
-#   jwt_inspect <token> -k 'my-secret'
-#   echo '<token>' | jwt_inspect -k 'secret'
-#   export JWT_SECRET='s3cr3t'; jwt_inspect <token>
+#   jwt-inspect <token>
+#   jwt-inspect <token> -k 'my-secret'
+#   echo '<token>' | jwt-inspect -k 'secret'
+#   export JWT_SECRET='s3cr3t'; jwt-inspect <token>
 #
 # Dependencies:
 #   - jq (highly recommended for JSON formatting and coloring)
@@ -79,11 +79,11 @@ fi
 #######################################
 function __jwt_usage() {
   cat << 'EOF'
-jwt_inspect - decode and analyze JSON Web Tokens
+jwt-inspect - decode and analyze JSON Web Tokens
 
 Usage:
-  jwt_inspect [-k <secret>] <token>
-  echo '<token>' | jwt_inspect [-k <secret>]
+  jwt-inspect [-k <secret>] <token>
+  echo '<token>' | jwt-inspect [-k <secret>]
 
 Description:
   Decodes the Base64Url encoded parts of a JWT (Header and Payload).
@@ -578,7 +578,7 @@ function __jwt_handle_verification() {
 #   0: On success.
 #   Non-zero: On error.
 #######################################
-function jwt_inspect() {
+function jwt-inspect() {
   local input_token=''
   local secret_key=''
   local help_requested=false
@@ -625,7 +625,7 @@ function jwt_inspect() {
 # If the script is executed directly (not sourced), run the main function.
 # If sourced, do nothing (just load the function).
 if [[ $JWT_SCRIPT_SOURCED == false ]]; then
-  jwt_inspect "$@"
+  jwt-inspect "$@"
   exit_code=$?
   exit "$exit_code"
 fi
